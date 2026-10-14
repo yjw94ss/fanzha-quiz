@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>反诈宣传进军营 · 有奖知识答题 | 中国工商银行荆门分行</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #f2f4f7;
+    color: #1c2430;
+    font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Heiti SC", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 16px 60px; }
+
+  /* 顶部 */
+  .topbar {
+    background: #c7000b;
+    background-image: linear-gradient(135deg, #c7000b 0%, #a80009 55%, #8d0007 100%);
+    color: #fff;
+    padding: 18px 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .inner { max-width: 900px; margin: 0 auto; }
+  .brand { font-size: 15px; letter-spacing: 1px; opacity: .92; }
+  .brand .logo {
+    display: inline-block; background: #fff; color: #c7000b;
+    font-weight: bold; border-radius: 4px; padding: 1px 8px; margin-right: 8px;
+    font-size: 14px;
+  }
+  .topbar h1 { margin: 10px 0 4px; font-size: 25px; line-height: 1.35; }
+  .topbar .sub { font-size: 14px; opacity: .88; }
+
+  /* 卡片 */
+  .card {
+    background: #fff; border-radius: 10px; padding: 24px;
+    box-shadow: 0 1px 3px rgba(16,24,40,.08), 0 6px 18px rgba(16,24,40,.05);
+    margin-bottom: 16px;
+  }
+
+  /* 开始页 */
+  .start-card { text-align: center; padding: 34px 24px 30px; }
+  .start-big { font-size: 20px; font-weight: bold; color: #253040; }
+  .start-big b { color: #c7000b; font-size: 25px; }
+  .start-sub { font-size: 14px; color: #8a94a0; margin-top: 10px; }
+  .start-card .rules { text-align: left; margin: 24px 0 26px; }
+  .start-btn { width: 100%; font-size: 21px; padding: 18px 0; margin: 0; letter-spacing: 3px; font-weight: bold; }
+
+  .rules { margin: 0 0 20px; padding: 0; list-style: none; }
+  .rules li { padding: 9px 0 9px 26px; position: relative; border-bottom: 1px dashed #eaecef; font-size: 15px; }
+  .rules li:last-child { border-bottom: 0; }
+  .rules li:before {
+    content: ""; position: absolute; left: 6px; top: 17px;
+    width: 7px; height: 7px; border-radius: 50%; background: #c7000b;
+  }
+  .rules b { color: #c7000b; }
+
+  .btn {
+    display: inline-block; border: 1px solid #d5dae1; background: #fff; color: #253040;
+    font-family: inherit; font-size: 16px; padding: 11px 22px; border-radius: 6px;
+    cursor: pointer; outline: none; margin-right: 10px; margin-top: 6px;
+    -webkit-appearance: none; appearance: none;
+  }
+  .btn:hover { border-color: #b8c0cb; background: #fafbfc; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .btn.primary { background: #c7000b; border-color: #c7000b; color: #fff; font-weight: bold; }
+  .btn.primary:hover { background: #b0000a; border-color: #b0000a; }
+  .btn.big { font-size: 17px; padding: 13px 40px; }
+
+  /* 进度 */
+  .progress-wrap { margin-bottom: 18px; }
+  .progress-head { font-size: 14px; color: #5a6675; margin-bottom: 7px; }
+  .progress-head .cur { color: #c7000b; font-weight: bold; font-size: 17px; }
+  .bar { height: 8px; background: #ebeef2; border-radius: 5px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; width: 0; background: #c7000b; border-radius: 5px; transition: width .25s ease; }
+
+  /* 题目 */
+  .qno {
+    display: inline-block; background: #fdecec; color: #c7000b; font-size: 13px;
+    padding: 2px 10px; border-radius: 20px; margin-bottom: 12px; font-weight: bold;
+  }
+  .qtext { font-size: 19px; font-weight: bold; line-height: 1.55; margin: 0 0 18px; }
+
+  .opt {
+    display: block; width: 100%; text-align: left; background: #fff;
+    border: 1px solid #dfe3e8; border-radius: 8px; padding: 13px 16px;
+    font-family: inherit; font-size: 16px; color: #253040; line-height: 1.55;
+    cursor: pointer; margin-bottom: 10px; outline: none;
+    -webkit-appearance: none; appearance: none;
+  }
+  .opt:hover { border-color: #c7000b; background: #fff8f8; }
+  .opt .key {
+    display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center;
+    border-radius: 50%; background: #f0f2f5; color: #5a6675; font-size: 13px;
+    font-weight: bold; margin-right: 10px; vertical-align: 1px;
+  }
+  .opt.sel { border-color: #c7000b; background: #fdecec; }
+  .opt.sel .key { background: #c7000b; color: #fff; }
+
+  /* 判题状态 */
+  .opt.lock { cursor: default; }
+  .opt.lock:hover { background: #fff; border-color: #dfe3e8; }
+  .opt.ok, .opt.lock.ok, .opt.lock.ok:hover { border-color: #12803a; background: #eaf7ef; }
+  .opt.ok .key, .opt.lock.ok .key { background: #12803a; color: #fff; }
+  .opt.bad, .opt.lock.bad, .opt.lock.bad:hover { border-color: #c7000b; background: #fdecec; }
+  .opt.bad .key, .opt.lock.bad .key { background: #c7000b; color: #fff; }
+
+  /* 即时反馈 */
+  .fb { display: none; margin-top: 6px; padding: 13px 16px; border-radius: 8px; font-size: 15px; line-height: 1.65; }
+  .fb.on { display: block; }
+  .fb.right { background: #eaf7ef; border-left: 4px solid #12803a; }
+  .fb.wrong { background: #fdecec; border-left: 4px solid #c7000b; }
+  .fb.hint { background: #f7f9fb; border-left: 4px solid #dfe3e8; color: #8a94a0; font-size: 14px; }
+  .fb .fb-title { font-weight: bold; font-size: 16.5px; margin-bottom: 5px; }
+  .fb.right .fb-title { color: #0f6b31; }
+  .fb.wrong .fb-title { color: #b0000a; }
+  .fb .fb-ans { color: #253040; margin-bottom: 4px; }
+  .fb .fb-ans b { color: #0f6b31; }
+  .fb .fb-exp { color: #5a6675; font-size: 14px; }
+  .fb .fb-next { margin-top: 10px; }
+  .fb .fb-next .btn { padding: 9px 22px; font-size: 15px; margin: 0; }
+
+  .live { color: #c7000b; font-weight: bold; }
+
+  .nav { margin-top: 22px; padding-top: 18px; border-top: 1px solid #eef1f4; }
+  .nav .btn { min-width: 104px; }
+
+  .kbd-hint { margin-top: 14px; font-size: 13px; color: #98a2b3; line-height: 1.8; }
+  .kbd-hint b {
+    display: inline-block; background: #f0f2f5; color: #40505f; border: 1px solid #e0e4e9;
+    border-radius: 4px; padding: 0 6px; font-size: 12.5px; font-family: Consolas, Menlo, monospace;
+  }
+
+  /* 答题卡 */
+  .sheet { margin-top: 18px; padding-top: 16px; border-top: 1px dashed #e2e6ea; display: none; }
+  .sheet.on { display: block; }
+  .sheet .grid { font-size: 0; }
+  .sheet .grid button {
+    display: inline-block; width: 40px; height: 36px; margin: 0 6px 6px 0; padding: 0;
+    border: 1px solid #dfe3e8; background: #fff; border-radius: 6px;
+    font-family: inherit; font-size: 14px; color: #40505f; cursor: pointer; outline: none;
+    -webkit-appearance: none; appearance: none;
+  }
+  .sheet .grid button:hover { border-color: #c7000b; }
+  .sheet .grid button.ok { background: #eaf7ef; border-color: #90cfa9; color: #0f6b31; }
+  .sheet .grid button.bad { background: #fdecec; border-color: #e8a6a9; color: #b0000a; }
+  .sheet .grid button.curr { background: #c7000b; border-color: #c7000b; color: #fff; font-weight: bold; }
+
+  /* 成绩 */
+  .score-box { text-align: center; padding: 10px 0 4px; }
+  .score-num { font-size: 62px; font-weight: bold; color: #c7000b; line-height: 1.1; }
+  .score-num small { font-size: 20px; color: #8a94a0; font-weight: normal; }
+  .grade { display: inline-block; background: #c7000b; color: #fff; font-size: 15px;
+    padding: 5px 18px; border-radius: 20px; margin: 10px 0 6px; font-weight: bold; }
+  .grade.g2 { background: #e08a00; }
+  .grade.g3 { background: #3d7ebf; }
+  .grade.g4 { background: #7a8492; }
+  .stat { color: #5a6675; font-size: 14px; }
+  .stat span { color: #253040; font-weight: bold; }
+  .prize {
+    background: #fffaf0; border: 1px solid #f3e0b8; border-left: 4px solid #e3a008;
+    padding: 12px 16px; border-radius: 6px; font-size: 15px; color: #6b4b06; margin: 18px 0 4px; text-align: left;
+  }
+
+  .review-head { display: block; padding: 16px 0 4px; }
+  .review-head h2 { font-size: 18px; margin: 0 0 12px; }
+  .rq { border-top: 1px solid #eef1f4; padding: 14px 0; }
+  .rq:first-child { border-top: 0; }
+  .rq .t { font-weight: bold; font-size: 15.5px; margin-bottom: 8px; }
+  .rq .t .no { color: #c7000b; margin-right: 6px; }
+  .rq .line { font-size: 14.5px; color: #40505f; margin: 3px 0; }
+  .rq .line .mark { display: inline-block; min-width: 42px; color: #8a94a0; }
+  .rq .ok { color: #12803a; font-weight: bold; }
+  .rq .no2 { color: #c7000b; font-weight: bold; }
+  .rq .exp { font-size: 14px; color: #6b7481; background: #f7f9fb; border-radius: 6px; padding: 8px 12px; margin-top: 8px; }
+  .rq.right .no2 { color: #12803a; }
+
+  .foot { text-align: center; color: #98a2b3; font-size: 13px; padding: 6px 0 0; }
+
+  @media (max-width: 560px) {
+    .topbar h1 { font-size: 20px; }
+    .card { padding: 18px 14px; }
+    .start-card { padding: 26px 16px 24px; }
+    .start-big { font-size: 16.5px; }
+    .start-big b { font-size: 20px; }
+    .start-sub { font-size: 13px; }
+    .start-btn { font-size: 18px; padding: 16px 0; letter-spacing: 2px; }
+    .qtext { font-size: 17px; }
+    .opt { font-size: 15px; padding: 12px 13px; }
+    .score-num { font-size: 50px; }
+    .btn { width: 100%; margin-right: 0; text-align: center; }
+    .nav .btn { min-width: 0; }
+    .sheet .grid button { width: 34px; height: 32px; font-size: 13px; margin: 0 5px 5px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="inner">
+    <div class="brand"><span class="logo">ICBC</span>中国工商银行荆门分行</div>
+    <h1>反诈宣传进军营 · 有奖知识答题</h1>
+    <div class="sub">守护钱袋子，军民同心防诈骗</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ===== 开始页 ===== -->
+  <div id="screen-start" class="card start-card">
+    <div class="start-big">共 <b>50</b> 题 &nbsp;·&nbsp; 每题 <b>2</b> 分 &nbsp;·&nbsp; 满分 <b>100</b> 分</div>
+    <div class="start-sub">全部为单项选择题，答一题即判对错，并显示正确答案与解析</div>
+
+    <ul class="rules">
+      <li>点击选项即作答，<b>答完立刻出结果</b>，答案不能修改，想清楚再选。</li>
+      <li>顶部实时显示当前得分，可用「答题卡」随时跳题。</li>
+      <li>全部答完点「查看成绩」，向工作人员出示成绩页面即可<b>领取奖品</b>。</li>
+    </ul>
+
+    <button type="button" class="btn primary start-btn" id="btnStart">开 始 答 题</button>
+  </div>
+
+  <!-- ===== 答题页 ===== -->
+  <div id="screen-quiz" class="card" style="display:none">
+    <div class="progress-wrap">
+      <div class="progress-head">第 <span class="cur" id="curNo">1</span> / 50 题 &nbsp;·&nbsp; 已作答 <span id="doneNo">0</span> 题 &nbsp;·&nbsp; 当前得分 <span class="live" id="liveScore">0</span> 分</div>
+      <div class="bar"><i id="barFill"></i></div>
+    </div>
+
+    <span class="qno" id="qTag">单选题</span>
+    <p class="qtext" id="qText"></p>
+    <div id="optBox"></div>
+    <div class="fb" id="fbBox"></div>
+
+    <div class="nav">
+      <button type="button" class="btn" id="btnPrev">上一题</button>
+      <button type="button" class="btn primary" id="btnNext">下一题</button>
+      <button type="button" class="btn" id="btnSheet">答题卡</button>
+      <button type="button" class="btn primary" id="btnSubmit">查看成绩</button>
+    </div>
+    <div class="kbd-hint">键盘操作：<b>1 2 3 4</b>（或 <b>A B C D</b>）选择选项 &nbsp;·&nbsp; <b>空格</b> 下一题 &nbsp;·&nbsp; <b>← →</b> 翻题 &nbsp;·&nbsp; 鼠标点击同样可用</div>
+
+    <div class="sheet" id="sheetBox">
+      <div style="font-size:14px;color:#5a6675;margin-bottom:10px;">点击题号可快速跳转（绿色=答对，红色=答错，红色实心=当前题）</div>
+      <div class="grid" id="sheetGrid"></div>
+    </div>
+  </div>
+
+  <!-- ===== 成绩页 ===== -->
+  <div id="screen-result" style="display:none">
+    <div class="card">
+      <div class="score-box">
+        <div id="gradeTop" class="grade">反诈达人</div>
+        <div class="score-num"><span id="scoreNum">0</span><small> 分</small></div>
+        <div class="stat" id="statLine"></div>
+      </div>
+      <div class="prize" id="prizeBox">
+        请向现场工作人员出示本页成绩，核验后领取奖品。
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="review-head">
+        <h2>逐题解析</h2>
+        <button type="button" class="btn" id="btnFilterWrong">只看错题</button>
+        <button type="button" class="btn primary" id="btnRestart">再答一次</button>
+      </div>
+      <div id="reviewBox"></div>
+    </div>
+  </div>
+
+  <div class="foot">主办：中国工商银行荆门分行 &nbsp;|&nbsp; 本页面为离线单文件，无需联网即可运行</div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var LETTERS = ["A", "B", "C", "D"];
+
+  /* ===== 题库：50 题单选，a 为正确答案下标（0=A,1=B,2=C,3=D） ===== */
+  var Q = [
+    { q: "全国统一的反诈预警劝阻咨询专线是？",
+      o: ["12315", "96110", "12345", "12308"], a: 1,
+      e: "96110 是全国统一反诈专线，接到该号码来电说明你可能正在遭遇诈骗，请务必接听；12381 为涉诈预警短信。" },
+
+    { q: "收到“12381”发来的涉诈预警短信，正确的做法是？",
+      o: ["路过看一眼就直接删除", "立即停止转账并核实", "回复短信要求解除预警", "转发给战友一起研究"], a: 1,
+      e: "12381 是工信部联合公安机关推出的涉诈预警短信，收到后应提高警惕，暂停转账操作并核实。" },
+
+    { q: "国家反诈中心 APP 的主要作用是？",
+      o: ["给手机杀毒和清理垃圾", "诈骗预警与线索举报", "办理贷款和信用卡", "查询个人征信报告"], a: 1,
+      e: "国家反诈中心 APP 具备诈骗预警、线索举报、身份验真、风险查询等功能，建议全员安装。" },
+
+    { q: "接到自称“军队保卫部门”的电话，称你涉嫌泄密，要你配合调查并把钱转到“安全账户”，应该？",
+      o: ["立即按对方要求把钱全部转过去", "先转一部分保证金表诚意", "挂断电话并向 110 核实", "添加对方微信继续沟通"], a: 2,
+      e: "公检法及军队保卫部门不会通过电话办案，更不会要求转账到任何账户，遇到此类情况应立即挂断并核实。" },
+
+    { q: "公检法机关办案的正确方式是？",
+      o: ["出示法律文书并依法定程序办理", "打电话要求把钱转到安全账户", "通过 QQ 发送所谓逮捕令", "要求事主绝对保密不得告诉任何人"], a: 0,
+      e: "凡自称公检法要求转账至“安全账户”、只通过电话或聊天软件办案的，一律是诈骗。" },
+
+    { q: "“杀猪盘”诈骗通常指的是？",
+      o: ["网络交友后诱导投资", "冒充客服办理退款理赔", "假冒军人采购物资", "虚假兼职刷单"], a: 0,
+      e: "杀猪盘指骗子先通过网络交友建立感情，再诱导受害人在虚假平台投资、赌博实施诈骗。" },
+
+    { q: "网络刷单返利类诈骗的共同特点是？",
+      o: ["先小额返利，再骗大额", "全程不需要垫付资金", "只能通过银行柜台办理业务", "会签订正规劳动合同"], a: 0,
+      e: "刷单本身就是违法行为。骗子通常先小额返利获取信任，再诱导大额投入后卷款失联。" },
+
+    { q: "陌生人要求你“共享屏幕”帮忙操作，正确做法是？",
+      o: ["共享屏幕操作起来更方便快捷", "只共享一部分界面即可", "坚决拒绝，会泄露验证码", "先共享屏幕，之后再关闭"], a: 2,
+      e: "共享屏幕会让对方看到你的银行卡号、密码和短信验证码，切勿与陌生人共享屏幕。" },
+
+    { q: "短信验证码可以提供给谁？",
+      o: ["银行客服人员", "任何人都不可以", "公安机关工作人员", "网购平台卖家"], a: 1,
+      e: "短信验证码是账户资金安全的重要防线，任何情况下都不要告诉他人。" },
+
+    { q: "出租、出借、出售自己的银行卡或电话卡，可能承担什么后果？",
+      o: ["对个人没有任何影响", "只是违规，不影响个人征信", "只要不获利就不算违法行为", "涉嫌帮信罪，将追究刑责"], a: 3,
+      e: "《刑法》第 287 条之二规定了帮助信息网络犯罪活动罪；出借出售“两卡”还可能被列入失信名单、限制银行业务办理。" },
+
+    { q: "银行账户管理中的“一人一户”是指？",
+      o: ["一张银行卡只能绑定一个手机号码", "同一家银行限开一个 I 类户", "一天只能取一次现金", "一个账户只能用一年"], a: 1,
+      e: "根据人民银行规定，同一个人在同一家银行只能开立一个 I 类户，多余账户将被清理。" },
+
+    { q: "有人出高价“租用”你的银行卡走账，正确做法是？",
+      o: ["拒绝，可能卷入洗钱犯罪", "只出租不用的卡，风险不大", "签个协议就安全了", "事后注销卡片就行"], a: 0,
+      e: "出租银行卡极可能被用于转移电信网络诈骗资金，出租人将承担相应法律责任。" },
+
+    { q: "网上贷款要求先缴纳“保证金、解冻费、包装费”，这属于？",
+      o: ["正规放款流程", "银行规定收取的费用", "典型诈骗", "可以协商减免"], a: 2,
+      e: "正规贷款在放款前不会收取任何费用，凡放款前先收费的，都是诈骗。" },
+
+    { q: "个人征信出现逾期记录，花钱能“洗白”吗？",
+      o: ["花钱可以找机构修复", "找中介托人就能消除", "只要逾期金额足够大就能修改", "不能，这类说法都是骗局"], a: 3,
+      e: "征信记录依法依规保存，任何声称可以“修复”“洗白”征信的机构或个人都是诈骗。" },
+
+    { q: "冒充“客服”退款诈骗的典型特征是？",
+      o: ["主动加倍赔偿并索要验证码", "只通过官方 APP 内办理退款", "让你到银行柜台当面办理", "可以提供正规发票和凭证"], a: 0,
+      e: "正规退款会原路返回，不需要你提供银行卡密码和验证码，更不会要求你先转账。" },
+
+    { q: "官兵在网上发布训练、装备、驻训位置等信息，可能带来的风险是？",
+      o: ["只是个人行为，无关紧要", "可能被境外机构利用泄密", "能增加个人粉丝和关注度", "有助于展示军人良好风采"], a: 1,
+      e: "军人上网须严守保密规定，随意发布涉军信息可能被境外情报机构利用，涉嫌违法违纪。" },
+
+    { q: "国家安全机关举报受理电话是？",
+      o: ["12339", "96110", "12315", "12345"], a: 0,
+      e: "12339 是国家安全机关举报受理电话，发现危害国家安全线索可拨打举报。" },
+
+    { q: "战友在微信上突然向你借钱，并拒绝接听电话，应该？",
+      o: ["关系好，可以先把钱转过去", "先转账再说", "电话或当面核实后再处理", "让其他人代转"], a: 2,
+      e: "社交账号可能被盗，凡涉及转账务必通过电话或当面核实对方身份。" },
+
+    { q: "AI 换脸、拟声技术常被诈骗分子用于？",
+      o: ["让通话声音更加清晰", "冒充亲友实施诈骗", "优化网络信号质量", "对聊天内容进行加密保护"], a: 1,
+      e: "骗子利用 AI 换脸、拟声冒充熟人实施诈骗，即使看到视频、听到声音也要通过其他方式核实。" },
+
+    { q: "对于来路不明的二维码，正确做法是？",
+      o: ["不扫来路不明的码", "扫了再看是什么", "只要不付款就没风险", "扫描后立即删除就行"], a: 0,
+      e: "陌生二维码可能跳转钓鱼网站或自动下载木马程序，切勿随意扫描。" },
+
+    { q: "接到“部队采购物资”的电话，要求你先垫付货款时，应该？",
+      o: ["抓紧下单赚取差价", "先垫付小额资金试着下单", "要求对方先付定金", "核实单位真伪再决定"], a: 3,
+      e: "冒充军队采购是常见骗局，正规采购有严格流程，不会要求个人先垫资付款。" },
+
+    { q: "接到“部队领导”要求帮忙转账的电话或微信，正确做法是？",
+      o: ["领导交办的事情应立即执行", "先转账后再报告领导", "通过电话或当面核实", "让家属代为转账"], a: 2,
+      e: "冒充领导诈骗常利用下属的服从心理，涉及转账必须通过原有渠道核实清楚。" },
+
+    { q: "《反电信网络诈骗法》自什么时候起施行？",
+      o: ["2021年6月1日", "2022年6月1日", "2023年1月1日起施行", "2022年12月1日"], a: 3,
+      e: "《中华人民共和国反电信网络诈骗法》于 2022 年 9 月 2 日通过，自 2022 年 12 月 1 日起施行。" },
+
+    { q: "“断卡行动”主要打击的是？",
+      o: ["非法买卖电话卡、银行卡", "打击网络游戏外挂行为", "整治城市违规停车占道问题", "查处虚假广告宣传行为"], a: 0,
+      e: "断卡行动重点打击非法开办、买卖电话卡和银行卡（含支付账户）的黑灰产业链。" },
+
+    { q: "遭遇电信网络诈骗后，最合理的做法是？",
+      o: ["立即报警并保留证据", "自认倒霉，不作声张", "自行联系对方追讨损失", "等对方主动退款"], a: 0,
+      e: "被骗后应立即报警，并保存聊天记录、转账凭证，为资金止付争取时间。" },
+
+    { q: "反诈工作中所说的“黄金 30 分钟”是指？",
+      o: ["每天 30 分钟的反诈宣传", "被骗后越早报警，止付越快", "每月 30 分钟的安全检查", "中奖后的兑奖期限"], a: 1,
+      e: "被骗后的 30 分钟是资金拦截的关键期，越早报警，冻结止付成功的可能性越大。" },
+
+    { q: "银行工作人员对大额转账进行风险提示时，应该？",
+      o: ["嫌麻烦，拒绝回答工作人员提问", "配合核实，如实说明用途", "换一家银行重新办理", "谎称是给家人转账"], a: 1,
+      e: "配合银行开展尽职调查是保护自身资金安全的重要环节，切勿隐瞒真实用途。" },
+
+    { q: "收到“您的快递丢失，点击链接理赔”的短信，正确做法是？",
+      o: ["点击链接填写银行卡信息", "通过官方核实，勿点链接", "按提示把验证码告诉对方", "回复短信向对方索要赔偿"], a: 1,
+      e: "快递理赔请通过官方客服渠道核实，不明链接可能窃取银行卡信息和短信验证码。" },
+
+    { q: "网上兼职“点赞、关注、刷单”日赚数百元，通常是？",
+      o: ["正规的灵活就业岗位", "平台官方推广活动", "公益志愿服务项目", "刷单返利类诈骗"], a: 3,
+      e: "刷单本身违法，且绝大多数属于诈骗，切勿贪图小利而掉入陷阱。" },
+
+    { q: "陌生网友推荐“内部渠道”高收益理财，应该？",
+      o: ["投入少量资金试试", "拒绝，高收益多为诈骗", "先看看对方发来的资质截图", "介绍给战友一起参与"], a: 1,
+      e: "承诺保本高收益的投资理财都是诈骗，正规金融机构不会承诺保本高收益。" },
+
+    { q: "个人银行账户可以怎样使用？",
+      o: ["借给他人收款使用", "出售给他人使用并收取好处费", "代为他人过账走流水", "仅限本人使用，不得外借"], a: 3,
+      e: "银行账户仅限本人使用，出租、出借、出售账户可能构成犯罪。" },
+
+    { q: "陌生人自称“军嫂”“军人家属”主动加你好友，既谈感情又谈投资，这可能是？",
+      o: ["正常的交友方式", "婚恋交友类诈骗", "部队组织的联谊活动", "公益相亲项目"], a: 1,
+      e: "此类骗局常以军人亲属身份博取信任，最终诱导投资、赌博，属于典型婚恋交友诈骗。" },
+
+    { q: "发现自己的账户被用于涉诈转账，应该？",
+      o: ["立即挂失止付并报警", "先观察几天再做处理", "删除相关聊天记录", "借给他人继续使用"], a: 0,
+      e: "发现账户异常应立即挂失、报警，并主动配合银行和公安机关调查。" },
+
+    { q: "关于所谓的“安全账户”，正确的认识是？",
+      o: ["是公安机关设立的专用账户", "是法院的暂扣账户", "不存在，均为诈骗", "是银行的监管账户"], a: 2,
+      e: "我国不存在所谓的“安全账户”，凡要求将资金转入安全账户的，一律是诈骗。" },
+
+    { q: "连接不明 WiFi、使用来路不明的免费充电设备，可能带来的风险是？",
+      o: ["手机上网速度明显变慢", "手机电量损耗加快", "手机信号变得很不稳定", "个人信息被窃取"], a: 3,
+      e: "不明 WiFi 和来路不明的充电设备可能被植入木马，窃取账号密码和个人信息。" },
+
+    { q: "微信上“领导”头像昵称一致，却要求你立即转账，应该？",
+      o: ["既然是领导，直接转账", "截图发到群里确认", "通过电话或当面核实", "让同事先行代付"], a: 2,
+      e: "任何人通过社交软件要求转账，都应通过电话或当面核实，防止账号被盗后冒充。" },
+
+    { q: "网络游戏中“低价充值、账号交易”的陷阱常见于？",
+      o: ["游戏官方自营的正规商城", "银行手机 APP 内的商城", "不明链接和私人交易平台", "部队内部局域网络平台"], a: 2,
+      e: "游戏账号、装备交易应通过官方平台进行，私人交易和陌生链接极易被骗。" },
+
+    { q: "手机收到“中奖、返现、领红包”的链接，正确做法是？",
+      o: ["点开看看真假", "转发给战友一起领取", "填写信息领取", "直接删除，不点击"], a: 3,
+      e: "天上不会掉馅饼，此类链接多为钓鱼网站或木马，直接删除即可。" },
+
+    { q: "军人使用互联网时，下列做法正确的是？",
+      o: ["在社交平台上晒部队番号和位置", "不拍摄、不传播涉密军事信息", "用境外聊天软件传工作资料", "把涉密文件拍照发给朋友"], a: 1,
+      e: "军人应严格遵守保密规定，不拍摄、不传播涉密军事信息，不使用境外软件传输工作资料。" },
+
+    { q: "发现涉诈线索，可以向哪个平台举报？",
+      o: ["国家反诈中心 APP", "网络购物平台的官方客服", "手机自带的应用商店", "短视频平台的客服中心"], a: 0,
+      e: "可通过国家反诈中心 APP、96110 或 110 举报涉诈线索。" },
+
+    { q: "银行账户突然收到来路不明的资金，正确做法是？",
+      o: ["直接取出来花掉", "转给朋友帮忙代为保管", "忽略，继续使用", "及时联系银行并报警"], a: 3,
+      e: "不明资金可能是涉诈资金，擅自使用或转移可能涉嫌犯罪，应及时联系银行并报警。" },
+
+    { q: "“裸聊”敲诈勒索案件中，犯罪分子最常利用的是？",
+      o: ["受害人的同情心", "受害人急需用钱周转的心理", "害怕隐私被曝光的心理", "受害人的好奇心"], a: 2,
+      e: "不要与陌生人视频裸聊，一旦被录屏将被反复敲诈，遇到威胁应立即报警。" },
+
+    { q: "投资平台声称“稳赚不赔、老师带单”，通常是？",
+      o: ["正规的证券投资服务", "银行理财顾问", "政府扶持项目", "虚假投资理财诈骗"], a: 3,
+      e: "所有承诺稳赚不赔、内幕消息、老师带单的平台都是诈骗，切勿下载来路不明的 APP。" },
+
+    { q: "使用手机银行、网上银行时，正确的做法是？",
+      o: ["设置复杂密码并定期更换", "把密码告诉家人朋友", "在公共电脑上登录网上银行", "使用生日作为支付密码"], a: 0,
+      e: "应使用复杂密码并定期更换，不在公共设备上登录网银，不向他人透露密码。" },
+
+    { q: "冒充军人身份实施诈骗的常见话术包括？",
+      o: ["帮你弄到内部购房指标", "提供官方就业招录信息渠道", "介绍正规军属优抚政策", "组织免费健康体检"], a: 0,
+      e: "所谓部队内部指标、特殊渠道多为骗局，涉及钱财务必核实清楚。" },
+
+    { q: "接到自称“银行客服”的电话索要卡号、密码、验证码，应该？",
+      o: ["如实提供以便核实", "提供卡号但不说密码", "提供短信验证码即可", "立即挂断并报警"], a: 3,
+      e: "银行工作人员不会通过电话索要密码和验证码，遇到此类情况应立即挂断并举报。" },
+
+    { q: "帮助他人“转账跑分”赚取佣金的行为属于？",
+      o: ["正当的兼职收入", "合法的理财方式", "涉嫌违法犯罪", "公益活动互助行为"], a: 2,
+      e: "为诈骗团伙转账、跑分涉嫌掩饰隐瞒犯罪所得罪或帮信罪，将被依法追究刑事责任。" },
+
+    { q: "发现自己可能被骗后，最不该做的是？",
+      o: ["立即报警", "保存聊天和转账记录", "继续向对方转账试图追回", "立即通知银行冻结账户并报警"], a: 2,
+      e: "被骗后不要继续转账试图追回，应立即报警并保存好相关证据。" },
+
+    { q: "网上“低价购车、低价房源”要求先付定金到私人账户的，应该？",
+      o: ["立即支付定金锁定名额", "核实清楚再付款", "要求对方提供身份证照片", "先付一半定金，剩下到货再给"], a: 1,
+      e: "涉及大额资金务必核验对方与房源、车源的真实性，不要向个人账户支付定金。" },
+
+    { q: "反诈宣传中“三不一多”的“多”指的是？",
+      o: ["多核实", "多休息", "多比价", "多存款"], a: 0,
+      e: "三不一多：未知链接不点击、陌生来电不轻信、个人信息不透露、转账汇款多核实。" }
+  ];
+
+  var TOTAL = Q.length;
+
+  /* 如需每次随机打乱题目/选项顺序（避免相邻的人互相抄答案），把下面两项改为 true */
+  var SHUFFLE_Q = false;
+  var SHUFFLE_O = false;
+
+  /* ===== 状态 ===== */
+  var quizList = [];      // 本次答题的题目
+  var answers = [];       // 每题的作答下标，-1 表示未答
+  var idx = 0;
+  var startTime = 0;
+  var submitted = false;
+  var onlyWrong = false;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+
+  function buildQuiz(shuffleQ, shuffleO) {
+    var idxs = [];
+    for (var i = 0; i < TOTAL; i++) { idxs.push(i); }
+    if (shuffleQ) { shuffle(idxs); }
+
+    var list = [];
+    for (var k = 0; k < idxs.length; k++) {
+      var src = Q[idxs[k]];
+      var opts = [];
+      for (var j = 0; j < src.o.length; j++) {
+        opts.push({ t: src.o[j], ok: (j === src.a) });
+      }
+      if (shuffleO) { shuffle(opts); }
+      var texts = [];
+      var correct = 0;
+      for (var m = 0; m < opts.length; m++) {
+        texts.push(opts[m].t);
+        if (opts[m].ok) { correct = m; }
+      }
+      list.push({ q: src.q, o: texts, a: correct, e: src.e });
+    }
+    return list;
+  }
+
+  function showScreen(name) {
+    $("screen-start").style.display = (name === "start") ? "block" : "none";
+    $("screen-quiz").style.display = (name === "quiz") ? "block" : "none";
+    $("screen-result").style.display = (name === "result") ? "block" : "none";
+    window.scrollTo(0, 0);
+  }
+
+  function calcScore() {
+    var r = 0;
+    for (var i = 0; i < quizList.length; i++) {
+      if (answers[i] === quizList[i].a) { r++; }
+    }
+    return r * 2;
+  }
+
+  function countDone() {
+    var d = 0;
+    for (var i = 0; i < answers.length; i++) { if (answers[i] >= 0) { d++; } }
+    return d;
+  }
+
+  function showFeedback(isRight) {
+    var fb = $("fbBox");
+    var item = quizList[idx];
+    fb.className = "fb on " + (isRight ? "right" : "wrong");
+    var html = "";
+    html += "<div class=\"fb-title\">" + (isRight ? "✔ 回答正确" : "✘ 回答错误") + "</div>";
+    if (!isRight) {
+      html += "<div class=\"fb-ans\">正确答案：<b>" + LETTERS[item.a] + ". " + escapeHtml(item.o[item.a]) + "</b></div>";
+    }
+    html += "<div class=\"fb-exp\">解析：" + escapeHtml(item.e) + "</div>";
+    if (idx < TOTAL - 1) {
+      html += "<div class=\"fb-next\"><button type=\"button\" class=\"btn primary\" id=\"fbNext\">下一题 →</button></div>";
+    } else {
+      html += "<div class=\"fb-next\"><button type=\"button\" class=\"btn primary\" id=\"fbNext\">查看成绩 →</button></div>";
+    }
+    fb.innerHTML = html;
+    $("fbNext").onclick = nextStep;
+  }
+
+  function nextStep() {
+    if (idx < TOTAL - 1) { go(1); } else { submit(); }
+  }
+
+  /* ===== 答题 ===== */
+  function startQuiz() {
+    quizList = buildQuiz(SHUFFLE_Q, SHUFFLE_O);
+    answers = [];
+    for (var i = 0; i < TOTAL; i++) { answers.push(-1); }
+    idx = 0;
+    submitted = false;
+    onlyWrong = false;
+    startTime = new Date().getTime();
+    buildSheet();
+    renderQuestion();
+    showScreen("quiz");
+  }
+
+  function renderQuestion() {
+    var item = quizList[idx];
+    var my = answers[idx];
+    var answered = (my >= 0);
+
+    $("curNo").innerHTML = (idx + 1);
+    $("qTag").innerHTML = "第 " + (idx + 1) + " 题 · 单选";
+
+    $("doneNo").innerHTML = countDone();
+    $("liveScore").innerHTML = calcScore();
+    $("barFill").style.width = (countDone() / TOTAL * 100) + "%";
+
+    $("qText").innerHTML = item.q;
+
+    var box = $("optBox");
+    box.innerHTML = "";
+    for (var k = 0; k < item.o.length; k++) {
+      var b = document.createElement("button");
+      b.type = "button";
+      var cls = "opt";
+      if (answered) {
+        cls += " lock";
+        if (k === item.a) { cls += " ok"; }
+        else if (k === my) { cls += " bad"; }
+      }
+      b.className = cls;
+      b.setAttribute("data-i", k);
+      b.innerHTML = "<span class=\"key\">" + LETTERS[k] + "</span>" + escapeHtml(item.o[k]);
+      b.onclick = (function (choice) {
+        return function () { pick(choice); };
+      })(k);
+      box.appendChild(b);
+    }
+
+    if (answered) {
+      showFeedback(my === item.a);
+    } else {
+      var fb = $("fbBox");
+      fb.className = "fb on hint";
+      fb.innerHTML = "请选择你认为正确的选项，选择后立即判定对错并显示正确答案。";
+    }
+
+    $("btnPrev").disabled = (idx === 0);
+    var last = (idx === TOTAL - 1);
+    $("btnNext").innerHTML = last ? "查看成绩" : "下一题";
+    $("btnNext").disabled = (!answered && !last);
+
+    updateSheet();
+  }
+
+  function pick(choice) {
+    if (answers[idx] >= 0) { return; }   // 已判题，锁定不可改
+    answers[idx] = choice;
+
+    var item = quizList[idx];
+    var btns = $("optBox").getElementsByTagName("button");
+    for (var i = 0; i < btns.length; i++) {
+      var ci = parseInt(btns[i].getAttribute("data-i"), 10);
+      var cls = "opt lock";
+      if (ci === item.a) { cls += " ok"; }
+      else if (ci === choice) { cls += " bad"; }
+      btns[i].className = cls;
+    }
+
+    showFeedback(choice === item.a);
+
+    $("doneNo").innerHTML = countDone();
+    $("liveScore").innerHTML = calcScore();
+    $("barFill").style.width = (countDone() / TOTAL * 100) + "%";
+    if (idx < TOTAL - 1) { $("btnNext").disabled = false; }
+
+    updateSheet();
+  }
+
+  function go(delta) {
+    var n = idx + delta;
+    if (n < 0 || n >= TOTAL) { return; }
+    idx = n;
+    renderQuestion();
+    window.scrollTo(0, 0);
+  }
+
+  function jumpTo(n) {
+    idx = n;
+    renderQuestion();
+    window.scrollTo(0, 0);
+  }
+
+  function buildSheet() {
+    var g = $("sheetGrid");
+    g.innerHTML = "";
+    for (var i = 0; i < TOTAL; i++) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("data-n", i);
+      b.innerHTML = (i + 1);
+      b.onclick = (function (n) {
+        return function () { jumpTo(n); };
+      })(i);
+      g.appendChild(b);
+    }
+  }
+
+  function updateSheet() {
+    var btns = $("sheetGrid").getElementsByTagName("button");
+    for (var i = 0; i < btns.length; i++) {
+      var n = parseInt(btns[i].getAttribute("data-n"), 10);
+      var cls = "";
+      if (answers[n] >= 0) {
+        cls += (answers[n] === quizList[n].a) ? " ok" : " bad";
+      }
+      if (n === idx) { cls += " curr"; }
+      btns[i].className = cls.replace(/^\s+/, "");
+    }
+  }
+
+  /* ===== 查看成绩 ===== */
+  function submit() {
+    var un = TOTAL - countDone();
+    if (un > 0) {
+      if (!window.confirm("还有 " + un + " 题未作答，未作答按 0 分计。确定现在查看成绩吗？")) {
+        for (var k = 0; k < answers.length; k++) {
+          if (answers[k] < 0) { idx = k; renderQuestion(); break; }
+        }
+        return;
+      }
+    }
+    submitted = true;
+    renderResult();
+    showScreen("result");
+  }
+
+  function renderResult() {
+    var right = 0;
+    for (var i = 0; i < quizList.length; i++) {
+      if (answers[i] === quizList[i].a) { right++; }
+    }
+    var score = right * 2;
+    var used = Math.round((new Date().getTime() - startTime) / 1000);
+
+    $("scoreNum").innerHTML = score;
+
+    var grade = "需要加强", gcls = "grade g4";
+    if (score === 100) { grade = "反诈先锋 · 满分"; gcls = "grade"; }
+    else if (score >= 90) { grade = "反诈达人"; gcls = "grade"; }
+    else if (score >= 70) { grade = "基本合格"; gcls = "grade g2"; }
+    else if (score >= 60) { grade = "仍需加油"; gcls = "grade g3"; }
+    var gt = $("gradeTop");
+    gt.className = gcls;
+    gt.innerHTML = grade;
+
+    var head = "";
+    $("statLine").innerHTML = head + "答对 <span>" + right + "</span> 题 / 共 " + TOTAL + " 题 &nbsp;·&nbsp; 用时 <span>" +
+      Math.floor(used / 60) + " 分 " + (used % 60) + " 秒</span>";
+
+    var pb = $("prizeBox");
+    if (score >= 90) {
+      pb.innerHTML = "恭喜！成绩优秀。请向现场工作人员出示本页成绩，核验后<b>领取奖品</b>。";
+    } else {
+      pb.innerHTML = "请向现场工作人员出示本页成绩。看看下面的错题解析，下次一定能拿高分！";
+    }
+
+    renderReview();
+  }
+
+  function renderReview() {
+    var box = $("reviewBox");
+    var html = [];
+    for (var i = 0; i < quizList.length; i++) {
+      var it = quizList[i];
+      var my = answers[i];
+      var isRight = (my === it.a);
+      if (onlyWrong && isRight) { continue; }
+
+      html.push("<div class=\"rq" + (isRight ? " right" : "") + "\">");
+      html.push("<div class=\"t\"><span class=\"no\">" + (i + 1) + ".</span>" + escapeHtml(it.q) + "</div>");
+      html.push("<div class=\"line\"><span class=\"mark\">你的答案</span><span class=\"" +
+        (isRight ? "ok" : "no2") + "\">" + (my >= 0 ? LETTERS[my] + ". " + escapeHtml(it.o[my]) : "未作答") +
+        (isRight ? "  ✔" : "  ✘") + "</span></div>");
+      if (!isRight) {
+        html.push("<div class=\"line\"><span class=\"mark\">正确答案</span><span class=\"ok\">" +
+          LETTERS[it.a] + ". " + escapeHtml(it.o[it.a]) + "</span></div>");
+      }
+      html.push("<div class=\"exp\">解析：" + escapeHtml(it.e) + "</div>");
+      html.push("</div>");
+    }
+    if (!html.length) {
+      html.push("<div class=\"rq\"><div class=\"line ok\">全部答对，没有错题，非常棒！</div></div>");
+    }
+    box.innerHTML = html.join("");
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  /* ===== 事件绑定 ===== */
+  $("btnStart").onclick = startQuiz;
+  $("btnPrev").onclick = function () { go(-1); };
+  $("btnNext").onclick = nextStep;
+  $("btnSubmit").onclick = submit;
+  $("btnSheet").onclick = function () {
+    var s = $("sheetBox");
+    s.className = (s.className.indexOf("on") >= 0) ? "sheet" : "sheet on";
+  };
+  $("btnRestart").onclick = function () {
+    $("sheetBox").className = "sheet";
+    showScreen("start");
+  };
+  $("btnFilterWrong").onclick = function () {
+    onlyWrong = !onlyWrong;
+    this.innerHTML = onlyWrong ? "查看全部题目" : "只看错题";
+    renderReview();
+  };
+
+  /* ===== 键盘快捷键（鼠标点击功能同时保留） ===== */
+  function noDefault(e) {
+    if (e && e.preventDefault) { e.preventDefault(); }
+    if (document.activeElement && document.activeElement.blur) { document.activeElement.blur(); }
+  }
+
+  function keyOfLetter(k) {
+    if (k === "a") { return 0; }
+    if (k === "b") { return 1; }
+    if (k === "c") { return 2; }
+    if (k === "d") { return 3; }
+    return -1;
+  }
+
+  function handleQuizKey(e) {
+    var key = e.keyCode || 0;
+    var k = String(e.key || "").toLowerCase();
+    var code = e.code || "";
+
+    // 小键盘 1 2 3 4（数字锁定开启时 e.code = Numpad1..4）
+    if (code.indexOf("Numpad") === 0) {
+      var np = parseInt(String(e.key), 10);
+      if (np >= 1 && np <= 4) { pick(np - 1); return; }
+    }
+
+    // 1 2 3 4 → 选择 A B C D（同时兼容数字键盘的 keyCode）
+    if (key >= 49 && key <= 52) { pick(key - 49); return; }
+    if (key >= 97 && key <= 100) { pick(key - 97); return; }
+
+    // A B C D 字母 → 选择 A B C D
+    var letter = keyOfLetter(k);
+    if (letter >= 0) { pick(letter); return; }
+
+    // 空格 / 回车 / → ：下一题（最后一题为查看成绩）
+    if (key === 32 || key === 13 || key === 39) {
+      noDefault(e);
+      if (answers[idx] >= 0 || idx === TOTAL - 1) { nextStep(); }
+      return;
+    }
+
+    // ← ：上一题
+    if (key === 37) { noDefault(e); go(-1); }
+  }
+
+  document.onkeydown = function (e) {
+    e = e || window.event;
+
+    // 开始页：空格 / 回车 直接开始答题
+    if ($("screen-start").style.display !== "none") {
+      var kk = e.keyCode || 0;
+      if (kk === 32 || kk === 13) { noDefault(e); startQuiz(); }
+      return;
+    }
+
+    if ($("screen-quiz").style.display !== "none") { handleQuizKey(e); }
+  };
+
+})();
+</script>
+</body>
+</html>
